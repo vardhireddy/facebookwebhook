@@ -28,7 +28,12 @@
 			<artifactId>json-path</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/com.facebook.business.sdk/facebook-java-business-sdk -->
+		<dependency>
+			<groupId>com.facebook.business.sdk</groupId>
+			<artifactId>facebook-java-business-sdk</artifactId>
+			<version>[3.0.0,)</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
