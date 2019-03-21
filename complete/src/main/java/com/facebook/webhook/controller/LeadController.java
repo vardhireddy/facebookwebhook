@@ -26,9 +26,10 @@ public class LeadController {
 
 	@Autowired
 	LeadService leadService;
-	
+
 	@PostMapping("/api/webhooks")
-	public Map<String, String> leadGen(@RequestHeader(value="X-Hub-Signature") String signature, @RequestBody Map<String, Object> subscriber) {
+	public Map<String, String> leadGen(@RequestHeader(value = "X-Hub-Signature") String signature,
+			@RequestBody Map<String, Object> subscriber) {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> map = new HashMap<>();
 		String status = "Failed";
@@ -40,11 +41,14 @@ public class LeadController {
 			log.info(json);
 			List<Map<String, Object>> entry = (List<Map<String, Object>>) input.get("entry");
 			for (Map<String, Object> x : entry) {
+
 				List<Map<String, Object>> changes = (List<Map<String, Object>>) x.get("changes");
+
 				for (Map<String, Object> y : changes) {
-					if (y.get("field") == "leadgen") {
+
+					if (y.get("field").toString().equalsIgnoreCase("leadgen")) {
 						Map<String, Object> value = (Map<String, Object>) y.get("value");
-						String leadgenId = (String) value.get("leadgen_id");
+						String leadgenId = value.get("leadgen_id").toString();
 						log.info("leadgen_id:{}", leadgenId);
 						leadService.getLeadData(leadgenId);
 					}
